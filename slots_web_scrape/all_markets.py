@@ -7,12 +7,15 @@ import timeit
 import numpy as np
 import pandas as pd
 import requests
+from pathlib import Path
 from bs4 import BeautifulSoup
 
 
 def read_json():
     try:
-        with open("./config.json", "r") as json_file:
+        dir_path = Path(__file__).parent
+        input_path = Path.joinpath(dir_path, "config.json")
+        with open(input_path, "r") as json_file:
             data = json_file.read()
         json_out = json.loads(data)
         return json_out
@@ -113,13 +116,15 @@ def format_data(df, market):
 def write_data(df, file_name, mode):
     config = read_json()
     output_path = config["output_path"]
+    dir_path = Path(__file__).parent  # dir_path = Path(__file__).parent.parent when one level higher
+
     if mode == "all":
-        path = os.path.join(output_path, file_name)
+        path = Path.joinpath(dir_path, output_path, file_name)
         df.to_csv(path, encoding="utf-8", index=False, mode="w")  # utf-8 encoding
         print(f"Saved to: {path} | 'all' mode")
     if mode == "local":
-        path = os.path.join(output_path, file_name)
-        df.to_csv(os.path.join(output_path, file_name), encoding="utf-8", index=False, mode="w")  # utf-8 encoding
+        path = Path.joinpath(dir_path, output_path, file_name)
+        df.to_csv(path, encoding="utf-8", index=False, mode="w")  # utf-8 encoding
         print(f"Saved to: {path} | 'local' mode")
 
 
@@ -179,7 +184,7 @@ def main():
     start = timeit.default_timer()
     options()
     config = read_json()
-    print(f"Config file loaded: {os.path.realpath('./config.json')}")
+    print(f"Config file loaded: {os.path.realpath('config.json')}")  # config path
     url = config["url"]
     print(f"URL: {url}")
 

@@ -1,6 +1,6 @@
 {
   "url": "https://slotcatalog.com/en",
-  "output_path": "..\\output\\",
+  "output_path": "output",
   "start_page": 1,
   "top_rank": 100,
   "max_pages": 1000000,

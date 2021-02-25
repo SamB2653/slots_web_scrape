@@ -83,3 +83,28 @@ The first value is true/false:
 * false = do not use list_markets The second value is a dictionary that contains the market code and market description
   for each market that will be scraped. A list of these can be found in the "all_markets" dictionary.  
   
+## Docker:  
+Volume (local) Path:  
+```
+\\wsl$\docker-desktop-data\version-pack-data\community\docker\volumes\data-volume
+```
+
+Output Directory Path:  
+```
+\data-volume\_data\output
+```
+
+Configuration File Path:  
+```
+\data-volume\_data\config.json
+```
+
+Building Docker Image:  
+```
+docker build -t slots_web_scrape:latest .
+```
+
+Run Docker Image:  
+```
+docker run --rm -v data-volume:"/Python Files/slots_web_scrape/" --name scrape slots_web_scrape:latest  
+```
